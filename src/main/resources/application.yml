@@ -1,0 +1,5 @@
+spring.datasource.driver-class-name: org.postgresql.Driver
+spring.datasource.url: jdbc:postgresql://localhost/converter
+spring.datasource.username: postgres
+spring.datasource.password: 111222333
+spring.jpa.generate-ddl: true

@@ -1,8 +1,10 @@
-package ru.evteev.converter;
+package ru.evteev.converter.models;
 
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
+import ru.evteev.converter.entities.Currency;
+import ru.evteev.converter.entities.ExchangeRate;
 
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;
@@ -11,15 +13,18 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class XMLParserSAX {
+public class XMLParserSAX implements XMLParser {
 
-    private static final List<Currency> currenciesSAX = new ArrayList<>();
-    private static final List<ExchangeRate> exchangeRatesSAX = new ArrayList<>();
+    private final List<Currency> currenciesSAX;
+    private final List<ExchangeRate> exchangeRatesSAX;
 
-    private XMLParserSAX() {
+    public XMLParserSAX() {
+        this.currenciesSAX = new ArrayList<>();
+        this.exchangeRatesSAX = new ArrayList<>();
     }
 
-    public static List<ExchangeRate> parse(String url)
+    @Override
+    public List<ExchangeRate> parse(String url)
             throws ParserConfigurationException, SAXException, IOException {
 
         SAXParserFactory factory = SAXParserFactory.newInstance();
@@ -28,10 +33,11 @@ public class XMLParserSAX {
         XMLHandler handler = new XMLHandler();
         parser.parse(url, handler);
 
+//        currenciesSAX.forEach(System.out::println);
         return exchangeRatesSAX;
     }
 
-    private static class XMLHandler extends DefaultHandler {
+    private class XMLHandler extends DefaultHandler {
 
         private String id;
         private String numCode;

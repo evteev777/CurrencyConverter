@@ -1,10 +1,12 @@
-package ru.evteev.converter;
+package ru.evteev.converter.models;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
+import ru.evteev.converter.entities.Currency;
+import ru.evteev.converter.entities.ExchangeRate;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -13,15 +15,18 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class XMLParserDOM {
+public class XMLParserDOM implements XMLParser {
 
-    private static final List<Currency> currenciesDOM = new ArrayList<>();
-    private static final List<ExchangeRate> exchangeRatesDOM = new ArrayList<>();
+    private final List<Currency> currenciesDOM;
+    private final List<ExchangeRate> exchangeRatesDOM;
 
-    private XMLParserDOM() {
+    public XMLParserDOM() {
+        this.currenciesDOM = new ArrayList<>();
+        this.exchangeRatesDOM = new ArrayList<>();
     }
 
-    public static List<ExchangeRate> parse(String url)
+    @Override
+    public List<ExchangeRate> parse(String url)
             throws ParserConfigurationException, SAXException, IOException {
 
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
@@ -42,7 +47,7 @@ public class XMLParserDOM {
             String id = valute.getNodeValue();
             String numCode = childNodes.item(0).getTextContent();
             String charCode = childNodes.item(1).getTextContent();
-            int nominal = Integer.parseInt(childNodes.item(2).getTextContent());
+            Integer nominal = Integer.parseInt(childNodes.item(2).getTextContent());
             String name = childNodes.item(3).getTextContent();
 
             // Exchange rate
@@ -53,6 +58,8 @@ public class XMLParserDOM {
             currenciesDOM.add(currency);
             exchangeRatesDOM.add(new ExchangeRate(currency, value));
         }
+//        currenciesDOM.forEach(System.out::println);
+
         return exchangeRatesDOM;
     }
 }
