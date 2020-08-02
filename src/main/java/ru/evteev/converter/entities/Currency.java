@@ -7,7 +7,6 @@ import lombok.Setter;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.OneToOne;
 
 //Lombok
 @Getter
@@ -24,9 +23,6 @@ public class Currency {
     private String charCode;
     private Integer nominal;
     private String name;
-
-//    @OneToOne
-//    private ExchangeRate exchangeRate;
 
     @Override
     public String toString() {

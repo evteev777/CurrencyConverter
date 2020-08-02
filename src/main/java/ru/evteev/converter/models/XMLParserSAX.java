@@ -33,7 +33,6 @@ public class XMLParserSAX implements XMLParser {
         XMLHandler handler = new XMLHandler();
         parser.parse(url, handler);
 
-//        currenciesSAX.forEach(System.out::println);
         return exchangeRatesSAX;
     }
 

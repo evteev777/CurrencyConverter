@@ -58,8 +58,6 @@ public class XMLParserDOM implements XMLParser {
             currenciesDOM.add(currency);
             exchangeRatesDOM.add(new ExchangeRate(currency, value));
         }
-//        currenciesDOM.forEach(System.out::println);
-
         return exchangeRatesDOM;
     }
 }
