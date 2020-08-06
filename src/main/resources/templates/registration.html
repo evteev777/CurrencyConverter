@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org" lang="ru">
+<head>
+    <title>Регистрация</title>
+</head>
+<body>
+<h1>Конвертер валют</h1>
+<h2>Регистрация</h2>
+<p><a href="/">На главную</a></p>
+<div th:if="${message}">
+    Такой пользователь уже зарегистрирован
+</div>
+<form th:action="@{/registration}" method="post">
+    <div><label> Имя : <input type="text" name="username"/> </label></div>
+    <div><label> Пароль: <input type="password" name="password"/> </label></div>
+    <div><input type="submit" value="Регистрация"/></div>
+</form>
+</body>
+</html>

@@ -1,10 +1,10 @@
-package ru.evteev.converter.models;
+package ru.evteev.converter.parser;
 
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
-import ru.evteev.converter.entities.Currency;
-import ru.evteev.converter.entities.ExchangeRate;
+import ru.evteev.converter.entity.Currency;
+import ru.evteev.converter.entity.ExchangeRate;
 
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;
@@ -38,7 +38,7 @@ public class XMLParserSAX implements XMLParser {
 
     private class XMLHandler extends DefaultHandler {
 
-        private String id;
+        private String parsedId;
         private String numCode;
         private String charCode;
         private Integer nominal;
@@ -50,7 +50,7 @@ public class XMLParserSAX implements XMLParser {
         public void startElement(String uri, String localName, String qName, Attributes attributes) {
             lastElementName = qName;
             if (qName.equals("Valute")) {
-                id = attributes.getValue("ID");
+                parsedId = attributes.getValue("ID");
             }
         }
 
@@ -73,18 +73,18 @@ public class XMLParserSAX implements XMLParser {
 
         @Override
         public void endElement(String uri, String localName, String qName) {
-            if (id != null && !id.isEmpty() &&
+            if (parsedId != null && !parsedId.isEmpty() &&
                     numCode != null && !numCode.isEmpty() &&
                     charCode != null && !charCode.isEmpty() &&
                     nominal != null &&
                     name != null && !name.isEmpty() &&
                     value != null
             ) {
-                Currency currency = new Currency(id, numCode, charCode, nominal, name);
+                Currency currency = new Currency(parsedId, numCode, charCode, nominal, name);
                 currenciesSAX.add(currency);
                 exchangeRatesSAX.add(new ExchangeRate(currency, value));
 
-                id = null;
+                parsedId = null;
                 numCode = null;
                 charCode = null;
                 nominal = null;

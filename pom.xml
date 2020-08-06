@@ -14,6 +14,7 @@
         <maven.compiler.target>14</maven.compiler.target>
         <java.version>14</java.version>
         <spring-boot.version>2.3.2.RELEASE</spring-boot.version>
+        <spring-security.version>5.3.3.RELEASE</spring-security.version>
         <postgresql.version>42.2.14</postgresql.version>
         <lombok.version>1.18.12</lombok.version>
     </properties>
@@ -59,6 +60,22 @@
                 </exclusion>
             </exclusions>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-security -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-security</artifactId>
+            <version>${spring-boot.version}</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/org.springframework.security/spring-security-test -->
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-test</artifactId>
+            <version>${spring-security.version}</version>
+            <scope>test</scope>
+        </dependency>
+
+
+
         <!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-data-jpa -->
         <dependency>
             <groupId>org.springframework.boot</groupId>

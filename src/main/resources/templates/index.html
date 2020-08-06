@@ -1,18 +1,19 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="ru">
+<html xmlns:th="https://www.thymeleaf.org" lang="ru">
 <head>
     <meta charset="UTF-8">
     <title>Главная</title>
 </head>
 <body>
 <h1>Конвертер валют</h1>
-<h2>Тестовое задание</h2>
-<p th:text="'Привет, ' + ${name} + '!'"></p>
-<button><a href="/converter">Конвертировать</a></button>
+<h2>Главная</h2>
+<form th:action="@{/converter}" method="post">
+    <div><input type="submit" value="Конвертер"/></div>
+</form>
 <div>
     <h4>&#169;&nbsp;Александр Евтеев</h4>
-    <a href="tel:+79859284108">+7 985 928-41-08</a></br>
-    <a href="mailto:evteev777@gmail.com">evteev777@gmail.com</a></br>
+    <a href="tel:+79859284108">+7 985 928-41-08</a><br>
+    <a href="mailto:evteev777@gmail.com">evteev777@gmail.com</a><br>
     <a href="https://github.com/evteev777/currency-converter">https://github.com/evteev777</a>
 </div>
 </body>

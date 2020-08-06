@@ -1,7 +1,7 @@
-package ru.evteev.converter.models;
+package ru.evteev.converter.parser;
 
 import org.xml.sax.SAXException;
-import ru.evteev.converter.entities.ExchangeRate;
+import ru.evteev.converter.entity.ExchangeRate;
 
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.IOException;

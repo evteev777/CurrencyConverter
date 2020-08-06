@@ -1,4 +1,4 @@
-package ru.evteev.converter.entities;
+package ru.evteev.converter.entity;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -9,6 +9,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import java.time.LocalDate;
 
 //Lombok
@@ -17,6 +20,7 @@ import java.time.LocalDate;
 @NoArgsConstructor
 
 @Entity
+@Table(name="exchange_rates")
 public class ExchangeRate {
 
     @Id
@@ -26,17 +30,13 @@ public class ExchangeRate {
     @OneToOne
     private Currency currency;
 
-    private Double value;
+    private double value;
+
+//    @Temporal(TemporalType.TIMESTAMP)
     private LocalDate date = LocalDate.now();
 
-    public ExchangeRate(Currency currency, Double value) {
+    public ExchangeRate(Currency currency, double value) {
         this.currency = currency;
         this.value = value;
-    }
-
-    @Override
-    public String toString() {
-        return String.format("ExchangeRate{%s,\tvalue=%8.4f,\tdate=%s}",
-                currency, value, date);
     }
 }

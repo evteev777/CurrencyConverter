@@ -1,12 +1,12 @@
-package ru.evteev.converter.models;
+package ru.evteev.converter.parser;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
-import ru.evteev.converter.entities.Currency;
-import ru.evteev.converter.entities.ExchangeRate;
+import ru.evteev.converter.entity.Currency;
+import ru.evteev.converter.entity.ExchangeRate;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -44,7 +44,7 @@ public class XMLParserDOM implements XMLParser {
             NodeList childNodes = rate.getChildNodes();
 
             // Currency
-            String id = valute.getNodeValue();
+            String parsedId = valute.getNodeValue();
             String numCode = childNodes.item(0).getTextContent();
             String charCode = childNodes.item(1).getTextContent();
             Integer nominal = Integer.parseInt(childNodes.item(2).getTextContent());
@@ -54,7 +54,7 @@ public class XMLParserDOM implements XMLParser {
             double value = Double.parseDouble(childNodes.item(4).getTextContent()
                     .replace(",", "."));
 
-            Currency currency = new Currency(id, numCode, charCode, nominal, name);
+            Currency currency = new Currency(parsedId, numCode, charCode, nominal, name);
             currenciesDOM.add(currency);
             exchangeRatesDOM.add(new ExchangeRate(currency, value));
         }
