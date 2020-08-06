@@ -58,6 +58,11 @@ public class XMLParserDOM implements XMLParser {
             currenciesDOM.add(currency);
             exchangeRatesDOM.add(new ExchangeRate(currency, value));
         }
+        Currency rub = new Currency(
+                "", "643", "RUB", 1, "Российский рубль");
+        currenciesDOM.add(rub);
+        exchangeRatesDOM.add(new ExchangeRate(rub, 1));
+
         return exchangeRatesDOM;
     }
 }

@@ -24,7 +24,7 @@ public class ExchangeService {
     public BigDecimal convert(Exchange exchange) throws ParseException {
         return getAmount(exchange)
                 .multiply(getValue(exchange.getSourceCurrency()))
-                .divide((getValue(exchange.getTargetCurrency())), RoundingMode.HALF_UP);
+                .divide((getValue(exchange.getTargetCurrency())), 2, RoundingMode.HALF_UP);
     }
 
     private BigDecimal getAmount(Exchange exchange) throws ParseException {

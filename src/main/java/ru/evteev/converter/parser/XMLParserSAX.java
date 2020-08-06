@@ -33,6 +33,11 @@ public class XMLParserSAX implements XMLParser {
         XMLHandler handler = new XMLHandler();
         parser.parse(url, handler);
 
+        Currency rub = new Currency(
+                "", "643", "RUB", 1, "Российский рубль");
+        currenciesSAX.add(rub);
+        exchangeRatesSAX.add(new ExchangeRate(rub, 1));
+
         return exchangeRatesSAX;
     }
 

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
 
-<!--TODO css-->
+    <!--TODO css-->
     <link rel="stylesheet" href="style.css">
     <title>Конвертация</title>
 </head>
@@ -12,61 +12,34 @@
 <h2>Конвертация</h2>
 <p><a href="/">На главную</a></p>
 
-<form action="#" th:action="@{/converter}" th:object="${exchange}",th method="post">
-    <div class="form-group blu-margin">
-            <div><label> Currency From : <input type="text" name="sourceCurrency"/> </label></div>
-            <div><label> Currency To : <input type="text" name="targetCurrency"/> </label></div>
-            <div><label> Amount : <input type="text" name="amount"/> </label></div>
-            <div><input type="submit" value="Ok"/></div>
-        <!--/*@thymesVar id="exchange" type="java"*/-->
-<!--        <select class="form-control" id="addUser1"  th:field="*{sourceCurrency}">-->
-<!--            <option value="0">Выберите Валюту</option>-->
-<!--            <option th:each="person1 : ${list}" th:value="${person1.numCode}" th:text="${person1.name}"></option>-->
-<!--        </select>-->
-<!--        <p>Кол-во: <input type="text" th:field="*{amount}" /></p>-->
-<!--        <select class="form-control" id="addUser2"  th:field="*{targetCurrency}">-->
-<!--            <option value="0">Выберите Валюту</option>-->
-<!--            <option th:each="person2 : ${list}" th:value="${person2.numCode}" th:text="${person2.name}"></option>-->
-<!--        </select>-->
-<!--        <p><input type="submit" value="Конвертировать" /> </p>-->
-    </div>
+<form action="#" th:action="@{/converter}" th:object="${exchange}" th method="post">
+
+    <select id="sourceCurrency" name="sourceCurrency">
+        <option value="0">Из валюты</option>
+        <option th:each="curr : ${currencies}" th:value="${curr.id}" th:text="${curr.charCode}"></option>
+    </select>
+
+    <select id="targetCurrency" name="targetCurrency">
+        <option value="0">В валюту</option>
+        <option th:each="curr : ${currencies}" th:value="${curr.id}" th:text="${curr.charCode}"></option>
+    </select>
+
+    <div><label> Amount : <input type="text" name="amount"/> </label></div>
+
+    <div><input type="submit" value="Ok"/></div>
 </form>
-<!--<div>-->
-<!--    <p>Получить список валют и обменные курсы</p>-->
-<!--    <form th:block th:text="${XMLParserService.getCurrenciesAndExchangeRates()}" method="post">-->
-<!--        <p><input type="submit" value="Получить"/></p>-->
-<!--    </form>-->
-<!--</div>-->
-<!--<h3>История конвертаций</h3>-->
-<!--<table>-->
-<!--    <tr>-->
-<!--        <th>Нз валюты</th>-->
-<!--        <th>Сумма</th>-->
-<!--        <th>В валюту</th>-->
-<!--        <th>Результат</th>-->
-<!--        <th>Клиент</th>-->
-<!--        <th>Дата запроса</th>-->
-<!--    </tr>-->
-<!--    <tr th:each = "exchanges: ${history}">-->
-<!--        <td th:text="${exchanges.id}"></td>-->
-<!--        <td th:text="${exchanges.sourceCurrency}"></td>-->
-<!--        <td th:text="${exchanges.amount}"></td>-->
-<!--        <td th:text="${exchanges.targetCurrency}"></td>-->
-<!--        <td th:text="${exchanges.result}"></td>-->
-<!--        <td th:text="${exchanges.client}"></td>-->
-<!--        <td th:text="${exchanges.date}"></td>-->
-<!--    </tr>-->
-<!--</table>-->
-
-<!--TODO Exchange list-->
-<!--<div>-->
-<!--    <b>id</b>-->
-<!--    <span>from</span>-->
-<!--    <span>to</span>-->
-<!--    <span>user</span>-->
-<!--    <span>date</span>-->
-<!--</div>-->
-
+<h3>История конвертаций</h3>
+<table border="2">
+    <tr th:each = "exch: ${exchanges}">
+        <td th:text="${exch.client.username}"></td>
+        <td th:text="${exch.date}"></td>
+        <td th:text="${exch.amount}"></td>
+        <td th:text="${exch.sourceCurrency.name}"></td>
+        <td>=</td>
+        <td th:text="${exch.result}"></td>
+        <td th:text="${exch.targetCurrency.name}"></td>
+    </tr>
+</table>
 
 <div>
     <form th:action="@{/logout}" method="post">
