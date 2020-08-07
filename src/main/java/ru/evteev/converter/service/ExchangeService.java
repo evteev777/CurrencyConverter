@@ -23,8 +23,7 @@ public class ExchangeService {
 
     public BigDecimal convert(Exchange exchange) throws ParseException {
         return getAmount(exchange)
-                .multiply(getValue(exchange.getSourceCurrency()))
-                .divide((getValue(exchange.getTargetCurrency())), 2, RoundingMode.HALF_UP);
+                .multiply(getConversionRate(exchange));
     }
 
     private BigDecimal getAmount(Exchange exchange) throws ParseException {
@@ -35,9 +34,17 @@ public class ExchangeService {
         return (BigDecimal) decimalFormat.parse(exchange.getAmount());
     }
 
-    private BigDecimal getValue(Currency currency) {
-        ExchangeRate rate = exchangeRateRepo.findByCurrencyId(currency.getId());
-        return BigDecimal.valueOf(rate.getValue() / currency.getNominal());
-    }
+    public BigDecimal getConversionRate(Exchange exchange) {
+        int sourseCurrencyId = exchange.getSourceCurrency().getId();
+        double sourseExchangeRate = exchangeRateRepo
+                .findByCurrencyId(sourseCurrencyId)
+                .getValue();
 
+        int targetCurrencyId = exchange.getTargetCurrency().getId();
+        double targetExchangeRate = exchangeRateRepo
+                .findByCurrencyId(targetCurrencyId)
+                .getValue();
+
+        return BigDecimal.valueOf(sourseExchangeRate / targetExchangeRate);
+    }
 }

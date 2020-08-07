@@ -1,0 +1,11 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org" xmlns:layout="http://www.w3.org/1999/xhtml" lang="ru">
+<head th:replace="fragments/header :: head"></head>
+<body>
+<div class="container">
+    <div layout:fragment="content"></div>
+    <div th:replace="fragments/footer :: footer"></div>
+</div>
+</body>
+</html>
+

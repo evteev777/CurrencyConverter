@@ -42,4 +42,6 @@ public class Exchange {
     private User client;
 
     private LocalDate date;
+
+    BigDecimal conversionRate;
 }

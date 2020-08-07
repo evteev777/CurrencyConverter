@@ -29,6 +29,7 @@ import java.util.Map;
 @RequiredArgsConstructor
 
 @Controller
+
 public class ExchangeController {
 
     private final ExchangeRepo exchangeRepo;
@@ -37,38 +38,42 @@ public class ExchangeController {
     private final CurrencyRepo currencyRepo;
 
     @GetMapping("/converter")
-    public String exchange(Map<String, Object> model)
+    public String exchange(Model model)
             throws IOException, SAXException, ParserConfigurationException {
         // TODO Parse
         xmlParserService.getCurrenciesAndExchangeRates();
 
         updateModel(model);
+        model.addAttribute("title", "Обмен валюты");
         return "converter";
     }
 
     @PostMapping("/converter")
     public String addExchange(@AuthenticationPrincipal User user,
                               @ModelAttribute Exchange exchange,
-                              Map<String, Object> model)
+                              Model model)
             throws ParseException {
 
         BigDecimal result = exchangeService.convert(exchange);
         exchange.setResult(result);
         exchange.setClient(user);
         exchange.setDate(LocalDate.now());
+        BigDecimal conversionRate = exchangeService.getConversionRate(exchange);
+        exchange.setConversionRate(conversionRate);
 
         exchangeRepo.save(exchange);
         updateModel(model);
+        model.addAttribute("metaTitle", "Обмен валюты");
         return "/converter";
     }
 
-    private void updateModel(Map<String, Object> model) {
+    private void updateModel(Model model) {
         List<Currency> currencies = new ArrayList<>();
         currencyRepo.findAll().forEach(currencies::add);
-        model.put("currencies", currencies);
+        model.addAttribute("currencies", currencies);
 
         List<Exchange> exchanges = new ArrayList<>();
         exchangeRepo.findAll().forEach(exchanges::add);
-        model.put("exchanges", exchanges);
+        model.addAttribute("exchanges", exchanges);
     }
 }

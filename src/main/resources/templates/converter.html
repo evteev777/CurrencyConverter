@@ -1,56 +1,59 @@
 <!DOCTYPE html>
-<html xmlns:th="https://www.thymeleaf.org" lang="ru">
-<head>
-    <meta charset="UTF-8">
-
-    <!--TODO css-->
-    <link rel="stylesheet" href="style.css">
-    <title>Конвертация</title>
-</head>
+<html xmlns:th="https://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layouts/default"
+      lang="ru">
 <body>
-<h1>Конвертер валют</h1>
-<h2>Конвертация</h2>
-<p><a href="/">На главную</a></p>
+<div id="page" layout:fragment="content">
+    <h1>Конвертер валют</h1>
+    <h2>Конвертация</h2>
+    <p><a href="/">На главную</a></p>
 
-<form action="#" th:action="@{/converter}" th:object="${exchange}" th method="post">
+    <form action="#" th:action="@{/converter}" th:object="${exchange}" th method="post">
 
-    <select id="sourceCurrency" name="sourceCurrency">
-        <option value="0">Из валюты</option>
-        <option th:each="curr : ${currencies}" th:value="${curr.id}" th:text="${curr.charCode}"></option>
-    </select>
+        <select id="sourceCurrency" name="sourceCurrency">
+            <option value="0">Из валюты</option>
+            <option th:each="curr : ${currencies}" th:value="${curr.id}" th:text="${curr.charCode}"></option>
+        </select>
 
-    <select id="targetCurrency" name="targetCurrency">
-        <option value="0">В валюту</option>
-        <option th:each="curr : ${currencies}" th:value="${curr.id}" th:text="${curr.charCode}"></option>
-    </select>
+        <select id="targetCurrency" name="targetCurrency">
+            <option value="0">В валюту</option>
+            <option th:each="curr : ${currencies}" th:value="${curr.id}" th:text="${curr.charCode}"></option>
+        </select>
 
-    <div><label> Amount : <input type="text" name="amount"/> </label></div>
+        <div><label> Сумма : <input type="text" name="amount"/> </label></div>
 
-    <div><input type="submit" value="Ok"/></div>
-</form>
-<h3>История конвертаций</h3>
-<table border="2">
-    <tr th:each = "exch: ${exchanges}">
-        <td th:text="${exch.client.username}"></td>
-        <td th:text="${exch.date}"></td>
-        <td th:text="${exch.amount}"></td>
-        <td th:text="${exch.sourceCurrency.name}"></td>
-        <td>=</td>
-        <td th:text="${exch.result}"></td>
-        <td th:text="${exch.targetCurrency.name}"></td>
-    </tr>
-</table>
-
-<div>
-    <form th:action="@{/logout}" method="post">
-        <input type="submit" value="Выход"/>
+        <div><input type="submit" value="Ok"/></div>
     </form>
-</div>
-<div>
-    <h4>&#169;&nbsp;Александр Евтеев</h4>
-    <a href="tel:+79859284108">+7 985 928-41-08</a><br>
-    <a href="mailto:evteev777@gmail.com">evteev777@gmail.com</a><br>
-    <a href="https://github.com/evteev777/currency-converter">https://github.com/evteev777</a>
+    <h3>История конвертаций</h3>
+    <table border="1">
+        <tr>
+            <td>Клиент</td>
+            <td>Дата</td>
+            <td>Валюта</td>
+            <td>Сумма</td>
+            <td>-></td>
+            <td>Валюта</td>
+            <td>Сумма</td>
+            <td>Курс конвертации</td>
+        </tr>
+        <tr th:each="exch: ${exchanges}">
+            <td th:text="${exch.client.username}"></td>
+            <td th:text="${exch.date}"></td>
+            <td th:text="${exch.sourceCurrency.name}"></td>
+            <td th:text="${exch.amount}"></td>
+            <td>-></td>
+            <td th:text="${exch.targetCurrency.name}"></td>
+            <td th:text="${exch.result}"></td>
+            <td th:text="${exch.conversionRate}"></td>
+        </tr>
+    </table>
+
+    <div>
+        <form th:action="@{/logout}" method="post">
+            <input type="submit" value="Выход"/>
+        </form>
+    </div>
 </div>
 </body>
 </html>

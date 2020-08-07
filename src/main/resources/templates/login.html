@@ -1,23 +1,26 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org" lang="ru">
-<head>
-    <title>Вход</title>
-</head>
+<html xmlns:th="https://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layouts/default"
+      lang="ru">
 <body>
-<h1>Конвертер валют</h1>
-<h2>Вход</h2>
-<p><a href="/">На главную</a></p>
-<div th:if="${param.error}">
-    Неправильное имя пользователя или пароль
+<div id="page" layout:fragment="content">
+    <h1>Конвертер валют</h1>
+    <p><a href="/">На главную</a></p>
+    <h2>Регистрация</h2>
+    <a href="/registration">Регистрация</a>
+    <h2>Вход</h2>
+    <div th:if="${param.error}">
+        Неправильное имя пользователя или пароль
+    </div>
+    <div th:if="${param.logout}">
+        Вы вышли из аккаунта
+    </div>
+    <form th:action="@{/login}" method="post">
+        <div><label> Имя : <input type="text" name="username"/> </label></div>
+        <div><label> Пароль: <input type="password" name="password"/> </label></div>
+        <div><input type="submit" value="Вход"/></div>
+    </form>
 </div>
-<div th:if="${param.logout}">
-    Вы вышли из аккаунта
-</div>
-<form th:action="@{/login}" method="post">
-    <div><label> Имя : <input type="text" name="username"/> </label></div>
-    <div><label> Пароль: <input type="password" name="password"/> </label></div>
-    <div><input type="submit" value="Вход"/></div>
-</form>
-<a href="/registration">Регистрация</a>
 </body>
 </html>
