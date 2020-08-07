@@ -10,16 +10,15 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.xml.sax.SAXException;
 import ru.evteev.converter.entity.Currency;
 import ru.evteev.converter.entity.Exchange;
-import ru.evteev.converter.entity.ExchangeRate;
 import ru.evteev.converter.entity.User;
 import ru.evteev.converter.repo.CurrencyRepo;
-import ru.evteev.converter.repo.ExchangeRateRepo;
 import ru.evteev.converter.repo.ExchangeRepo;
 import ru.evteev.converter.service.ExchangeService;
 import ru.evteev.converter.service.XMLParserService;
 
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.IOException;
+import java.math.RoundingMode;
 import java.text.ParseException;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -36,7 +35,6 @@ public class ExchangeController {
     private final ExchangeService exchangeService;
     private final XMLParserService xmlParserService;
     private final CurrencyRepo currencyRepo;
-    private final ExchangeRateRepo exchangeRateRepo;
 
     @GetMapping("/converter")
     public String exchange(Model model)
@@ -57,32 +55,22 @@ public class ExchangeController {
                               Model model)
             throws ParseException, IOException, SAXException, ParserConfigurationException {
 
-        if (exchangeRatesNotActuat(exchange)) {
+        if (exchangeService.exchangeRatesNotActual(exchange)) {
             xmlParserService.getCurrenciesAndExchangeRates();
         }
 
-        exchange.setResult(exchangeService.convert(exchange));
+        exchange.setConversionRate(exchangeService.getConversionRate(exchange)
+                .setScale(4, RoundingMode.HALF_UP));
+        exchange.setResult(exchangeService.convert(exchange)
+                .setScale(2, RoundingMode.HALF_UP));
         exchange.setClient(user);
         exchange.setDate(LocalDate.now());
-        exchange.setConversionRate(exchangeService.getConversionRate(exchange));
         exchangeRepo.save(exchange);
 
         updateModel(model);
         model.addAttribute("metaTitle", "Обмен валюты");
 
         return "/converter";
-    }
-
-    private boolean exchangeRatesNotActuat(Exchange exchange) {
-        int sourceCurrencyId = exchange.getSourceCurrency().getId();
-        ExchangeRate sourceExchRate = exchangeRateRepo.findByCurrencyId(sourceCurrencyId);
-        boolean sourseExchRateActual = sourceExchRate.getDate().isEqual(LocalDate.now());
-
-        int targetCurrencyId = exchange.getSourceCurrency().getId();
-        ExchangeRate targetExchRate = exchangeRateRepo.findByCurrencyId(targetCurrencyId);
-        boolean targetExchRateActual = targetExchRate.getDate().isEqual(LocalDate.now());
-
-        return sourseExchRateActual && targetExchRateActual;
     }
 
     private void updateModel(Model model) {
