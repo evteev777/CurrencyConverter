@@ -10,8 +10,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.xml.sax.SAXException;
 import ru.evteev.converter.entity.Currency;
 import ru.evteev.converter.entity.Exchange;
+import ru.evteev.converter.entity.ExchangeRate;
 import ru.evteev.converter.entity.User;
 import ru.evteev.converter.repo.CurrencyRepo;
+import ru.evteev.converter.repo.ExchangeRateRepo;
 import ru.evteev.converter.repo.ExchangeRepo;
 import ru.evteev.converter.service.ExchangeService;
 import ru.evteev.converter.service.XMLParserService;
@@ -24,6 +26,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 // Lombok
 @RequiredArgsConstructor
@@ -36,12 +39,15 @@ public class ExchangeController {
     private final ExchangeService exchangeService;
     private final XMLParserService xmlParserService;
     private final CurrencyRepo currencyRepo;
+    private final ExchangeRateRepo exchangeRateRepo;
 
     @GetMapping("/converter")
     public String exchange(Model model)
             throws IOException, SAXException, ParserConfigurationException {
-        // TODO Parse
-        xmlParserService.getCurrenciesAndExchangeRates();
+
+        if (currencyRepo.count() == 0) {
+            xmlParserService.getCurrenciesAndExchangeRates();
+        }
 
         updateModel(model);
         model.addAttribute("title", "Обмен валюты");
@@ -52,19 +58,34 @@ public class ExchangeController {
     public String addExchange(@AuthenticationPrincipal User user,
                               @ModelAttribute Exchange exchange,
                               Model model)
-            throws ParseException {
+            throws ParseException, IOException, SAXException, ParserConfigurationException {
 
-        BigDecimal result = exchangeService.convert(exchange);
-        exchange.setResult(result);
+        if (exchangeRatesNotActuat(exchange)) {
+            xmlParserService.getCurrenciesAndExchangeRates();
+        }
+
+        exchange.setResult(exchangeService.convert(exchange));
         exchange.setClient(user);
         exchange.setDate(LocalDate.now());
-        BigDecimal conversionRate = exchangeService.getConversionRate(exchange);
-        exchange.setConversionRate(conversionRate);
-
+        exchange.setConversionRate(exchangeService.getConversionRate(exchange));
         exchangeRepo.save(exchange);
+
         updateModel(model);
         model.addAttribute("metaTitle", "Обмен валюты");
+
         return "/converter";
+    }
+
+    private boolean exchangeRatesNotActuat(Exchange exchange) {
+        int sourceCurrencyId = exchange.getSourceCurrency().getId();
+        ExchangeRate sourceExchRate = exchangeRateRepo.findByCurrencyId(sourceCurrencyId);
+        boolean sourseExchRateActual = sourceExchRate.getDate().isEqual(LocalDate.now());
+
+        int targetCurrencyId = exchange.getSourceCurrency().getId();
+        ExchangeRate targetExchRate = exchangeRateRepo.findByCurrencyId(targetCurrencyId);
+        boolean targetExchRateActual = targetExchRate.getDate().isEqual(LocalDate.now());
+
+        return sourseExchRateActual && targetExchRateActual;
     }
 
     private void updateModel(Model model) {

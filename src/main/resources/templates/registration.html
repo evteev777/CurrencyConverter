@@ -10,6 +10,7 @@
     <p><a href="/">На главную</a></p>
     <div th:if="${message}">
         Такой пользователь уже зарегистрирован
+        <p><a href="/login">Войти</a></p>
     </div>
     <form th:action="@{/registration}" method="post">
         <div><label> Имя : <input type="text" name="username"/> </label></div>
