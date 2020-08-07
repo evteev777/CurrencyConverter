@@ -27,7 +27,7 @@ import java.util.Set;
 @NoArgsConstructor
 
 @Entity
-@Table(name="users")
+@Table(name = "users")
 public class User implements UserDetails {
 
     @Id
@@ -36,7 +36,7 @@ public class User implements UserDetails {
     private String username;
     private String password;
     private Boolean active;
-    
+
     @OneToMany
     private Set<Exchange> exchange;
 

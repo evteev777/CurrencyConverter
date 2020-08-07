@@ -18,11 +18,11 @@ import java.time.LocalDate;
 @NoArgsConstructor
 
 @Entity
-@Table(name="exchange_rates")
+@Table(name = "exchange_rates")
 public class ExchangeRate {
 
     @Id
-    @GeneratedValue(strategy= GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     int id;
 
     @OneToOne
@@ -30,7 +30,7 @@ public class ExchangeRate {
 
     private double value;
 
-//    @Temporal(TemporalType.TIMESTAMP)
+    //    @Temporal(TemporalType.TIMESTAMP)
     private LocalDate date = LocalDate.now();
 
     public ExchangeRate(Currency currency, double value) {

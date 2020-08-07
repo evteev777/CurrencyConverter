@@ -21,7 +21,7 @@ import java.time.LocalDate;
 @AllArgsConstructor
 
 @Entity
-@Table(name="exchanges")
+@Table(name = "exchanges")
 public class Exchange {
 
     @Id

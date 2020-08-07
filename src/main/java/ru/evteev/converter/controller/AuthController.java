@@ -11,7 +11,6 @@ import ru.evteev.converter.entity.User;
 import ru.evteev.converter.repo.UserRepo;
 
 import java.util.Collections;
-import java.util.Map;
 
 // Lombok
 @RequiredArgsConstructor
@@ -30,7 +29,7 @@ public class AuthController {
 
     @PostMapping
     public String addUser(User user, Model model) {
-        if(userRepo.findByUsername(user.getUsername()) != null) {
+        if (userRepo.findByUsername(user.getUsername()) != null) {
             model.addAttribute("message", "Такой пользователь уже есть");
             return "registration";
         }

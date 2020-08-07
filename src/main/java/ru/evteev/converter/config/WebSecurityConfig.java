@@ -36,7 +36,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(userService)
-        .passwordEncoder(NoOpPasswordEncoder.getInstance())
+                .passwordEncoder(NoOpPasswordEncoder.getInstance())
 //        .usersByUsernameQuery("SELECT username, password, active FROM users WHERE username=?")
 //        .authoritiesByUsernameQuery("SELECT u.username, r.roles FROM users u INNER JOIN user_roles r on u.id = r.user_id WHERE u.username=?")
         ;

@@ -20,13 +20,10 @@ import ru.evteev.converter.service.XMLParserService;
 
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.IOException;
-import java.math.BigDecimal;
 import java.text.ParseException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
-import java.util.Optional;
 
 // Lombok
 @RequiredArgsConstructor
