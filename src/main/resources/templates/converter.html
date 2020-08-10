@@ -5,26 +5,19 @@
       lang="ru">
 <body>
 <div id="page" layout:fragment="content">
-    <h1>Конвертер валют</h1>
-    <h2>Конвертация</h2>
-    <p><a href="/">На главную</a></p>
-
     <form action="#" th:action="@{/converter}" th:object="${exchange}" th method="post">
-
         <select id="sourceCurrency" name="sourceCurrency">
             <option value="0">Из валюты</option>
             <option th:each="curr : ${currencies}" th:value="${curr.id}" th:text="${curr.charCode}"></option>
         </select>
-
         <select id="targetCurrency" name="targetCurrency">
             <option value="0">В валюту</option>
             <option th:each="curr : ${currencies}" th:value="${curr.id}" th:text="${curr.charCode}"></option>
         </select>
-
         <div><label> Сумма : <input type="text" name="amount"/> </label></div>
-
         <div><input type="submit" value="Ok"/></div>
     </form>
+
     <h3>История конвертаций</h3>
     <table border="1">
         <tr>

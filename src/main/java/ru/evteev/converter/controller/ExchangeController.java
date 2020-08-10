@@ -7,6 +7,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.xml.sax.SAXException;
 import ru.evteev.converter.entity.Exchange;
 import ru.evteev.converter.entity.User;
@@ -20,21 +21,20 @@ import java.text.ParseException;
 @RequiredArgsConstructor
 
 @Controller
-
+@RequestMapping
 public class ExchangeController {
 
     private final ExchangeService exchangeService;
 
-
-    @GetMapping("/converter")
+    @GetMapping
     public String exchange(Model model) throws IOException, SAXException, ParserConfigurationException {
 
         model.addAttribute("currencies", exchangeService.getCurrencies());
-        model.addAttribute("title", "Обмен валюты");
+        model.addAttribute("metaTitle", "Обмен валюты");
         return "converter";
     }
 
-    @PostMapping("/converter")
+    @PostMapping
     public String addExchange(@AuthenticationPrincipal User user,
                               @ModelAttribute Exchange exchange,
                               Model model)
@@ -46,6 +46,6 @@ public class ExchangeController {
         model.addAttribute("currencies", exchangeService.getCurrencies());
         model.addAttribute("exchanges", exchangeService.getExchanges());
         model.addAttribute("metaTitle", "Обмен валюты");
-        return "/converter";
+        return "converter";
     }
 }

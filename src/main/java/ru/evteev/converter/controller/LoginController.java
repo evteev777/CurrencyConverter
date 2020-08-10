@@ -16,28 +16,19 @@ import java.util.Collections;
 @RequiredArgsConstructor
 
 @Controller
-@RequestMapping("/registration")
-public class AuthController {
-
-    private final UserRepo userRepo;
+@RequestMapping("/login")
+public class LoginController {
 
     @GetMapping
     public String registration(Model model) {
-        model.addAttribute("title", "Регистрация");
-        return "registration";
+        model.addAttribute("metaTitle", "Вход");
+        return "login";
     }
 
     @PostMapping
-    public String addUser(User user, Model model) {
-        if (userRepo.findByUsername(user.getUsername()) != null) {
-            model.addAttribute("message", "Такой пользователь уже есть");
-            return "registration";
-        }
-        user.setActive(true);
-        user.setRoles(Collections.singleton(Role.USER));
-        userRepo.save(user);
+    public String addUser(Model model) {
         // TODO Auto-login
-        model.addAttribute("metaTitle", "Регистрация");
+        model.addAttribute("metaTitle", "Вход");
         return "redirect:/converter";
     }
 }

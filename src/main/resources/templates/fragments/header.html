@@ -1,8 +1,13 @@
-<head th:fragment="head">
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-    <meta content="ie=edge" http-equiv="x-ua-compatible" />
-    <title th:text="${metaTitle} ? ${metaTitle} : 'Конвертер'"></title>
-<!--    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}"/>-->
-<!--    <link rel="stylesheet" href="/css/style.css"/>-->
-</head>
+<header th:fragment="header">
+    <nav>
+        <ul>
+            <li><a href="/">На главную</a></li>
+            <li><a href="/login">Вход</a></li>
+            <li><a href="/registration">Регистрация</a></li>
+            <li><a href="/converter">Обмен валюты</a></li>
+        </ul>
+    </nav>
+    <h1>Конвертер валют</h1>
+    <h2 th:text="${metaTitle}"></h2>
+    <p></p>
+</header>
