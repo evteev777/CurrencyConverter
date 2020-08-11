@@ -22,7 +22,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                .antMatchers("/", "/registration", "/static/css/style.css").permitAll()
+                .antMatchers("/", "/registration", "/login", "/css/*", "/images/favicon/*", "/action/*").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
@@ -36,9 +36,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(userService)
-                .passwordEncoder(NoOpPasswordEncoder.getInstance())
-//        .usersByUsernameQuery("SELECT username, password, active FROM users WHERE username=?")
-//        .authoritiesByUsernameQuery("SELECT u.username, r.roles FROM users u INNER JOIN user_roles r on u.id = r.user_id WHERE u.username=?")
-        ;
+                .passwordEncoder(NoOpPasswordEncoder.getInstance());
     }
 }

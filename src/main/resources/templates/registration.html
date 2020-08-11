@@ -10,11 +10,29 @@
         Такой пользователь уже зарегистрирован
         <p><a href="/login">Войти</a></p>
     </div>
-    <form th:action="@{/registration}" method="post">
+    <div>
         <div><label> Имя : <input type="text" name="username"/> </label></div>
         <div><label> Пароль: <input type="password" name="password"/> </label></div>
-        <div><input type="submit" value="Регистрация"/></div>
-    </form>
+        <form th:action="@{/registration}" method="post">
+            <div><input type="submit" value="Регистрация"/></div>
+        </form>
+    </div>
+
+<!--    <form class="form" action="#" th:action="@{/action}" method="post">-->
+<!--&lt;!&ndash;    <form class="form" action="#" data-th-action="@{/action}" data-th-object="${model}" method="post">&ndash;&gt;-->
+<!--        <h1>Конвертер валют</h1>-->
+<!--        <div class="form_title" th:text="${metaTitle}"></div>-->
+<!--        <div class="form_group">-->
+<!--            <input class="form_input" placeholder=" " type="text" name="username">-->
+<!--            <label class="form_label">Имя</label>-->
+<!--        </div>-->
+<!--        <div class="form_group">-->
+<!--            <input class="form_input" placeholder=" " type="password" name="password">-->
+<!--            <label class="form_label">Пароль</label>-->
+<!--        </div>-->
+<!--        <button class="form_button" type="submit" name="action" value="registration">Регистрация</button>-->
+<!--        <button class="form_button" type="submit" name="action" value="login">Войти</button>-->
+<!--    </form>-->
 </div>
 </body>
 </html>
