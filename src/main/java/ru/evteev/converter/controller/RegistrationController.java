@@ -1,5 +1,6 @@
 package ru.evteev.converter.controller;
 
+import java.util.Collections;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -10,8 +11,6 @@ import ru.evteev.converter.entity.Role;
 import ru.evteev.converter.entity.User;
 import ru.evteev.converter.repo.UserRepo;
 
-import java.util.Collections;
-
 // Lombok
 @RequiredArgsConstructor
 
@@ -20,10 +19,11 @@ import java.util.Collections;
 public class RegistrationController {
 
     private final UserRepo userRepo;
+    String title = "Регистрация";
 
     @GetMapping
-    public String registration(Model model) {
-        model.addAttribute("metaTitle", "Регистрация");
+    public String showRegistrationPage(Model model) {
+        model.addAttribute("metaTitle", title);
         return "registration";
     }
 
@@ -36,8 +36,7 @@ public class RegistrationController {
         user.setActive(true);
         user.setRoles(Collections.singleton(Role.USER));
         userRepo.save(user);
-        // TODO Auto-login
-        model.addAttribute("metaTitle", "Регистрация");
-        return "redirect:/login";
+        model.addAttribute("metaTitle", title);
+        return "redirect:login";
     }
 }

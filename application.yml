@@ -1,0 +1,23 @@
+server:
+  servlet:
+    context-path: /converter
+url:
+  cbr: http://www.cbr.ru/scripts/XML_daily.asp
+  prefix: /
+spring:
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost/converter
+    username: postgres
+    password: 111222333
+  jpa:
+    show-sql: true
+    generate-ddl: true
+    hibernate:
+      ddl-auto: create-drop
+    properties:
+      hibernate:
+        jdbc:
+          lob:
+            non_contextual_creation: true
+

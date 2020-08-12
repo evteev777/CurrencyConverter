@@ -5,15 +5,9 @@
       lang="ru">
 <body>
 <div id="page" layout:fragment="content">
-    <div th:if="${param.error}">
-        Неправильное имя пользователя или пароль
-    </div>
-    <div th:if="${param.logout}">
-        Вы вышли из аккаунта
-    </div>
-    <form class="form" th:action="@{/action}" method="post">
-        <!--    <form class="form" action="#" data-th-action="@{/action}" data-th-object="${model}" method="post">-->
-        <h1>Конвертер валют</h1>
+
+    <form class="form" th:action="@{/login}" method="post">
+
         <div class="form_title" th:text="${metaTitle}"></div>
         <div class="form_group">
             <input class="form_input" placeholder=" " type="text" name="username">
@@ -23,8 +17,20 @@
             <input class="form_input" placeholder=" " type="password" name="password">
             <label class="form_label">Пароль</label>
         </div>
-        <button class="form_button" type="submit" name="action" value="registration">Регистрация</button>
-        <button class="form_button" type="submit" name="action" value="login">Войти</button>
+        <div class="form_text_error" th:if="${param.error}">
+            Неправильное имя пользователя или пароль
+        </div>
+        <div class="form_text_error" th:if="${param.logout}">
+            Вы вышли из аккаунта
+        </div>
+        <button class="form_button" type="submit">Войти</button>
+        <div class="form_text">
+            Новый пользователь?<br>
+            <a th:href="@{/registration}">Зарегистрируйтесь</a>
+        </div>
+        <div class="form_text"><a th:href="@{/}">
+            На главную</a>
+        </div>
     </form>
 </div>
 </body>

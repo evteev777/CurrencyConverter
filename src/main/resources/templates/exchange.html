@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layouts/default"
+      lang="ru">
+<body>
+<div id="page" layout:fragment="content">
+    <!--/*@thymesVar id="exchange" type="java"*/-->
+    <form class="form" action="#" th:action="@{/exchange}" th:object="${exchange}" th:method="post">
+        <div class="form_title" th:text="${metaTitle}"></div>
+        <div><select class="form_dropdown-button" id="sourceCurrency" name="sourceCurrency">
+            <option value="0">Из валюты</option>
+            <option th:each="curr : ${currencies}" th:value="${curr.id}"
+                    th:text="${curr.charCode}"></option>
+        </select>
+            <select class="form_dropdown-button" id="targetCurrency" name="targetCurrency">
+                <option value="0">В валюту</option>
+                <option th:each="curr : ${currencies}" th:value="${curr.id}"
+                        th:text="${curr.charCode}"></option>
+            </select>
+        </div>
+        <div class="form_group">
+            <input class="form_input" placeholder=" " type="text" name="amount">
+            <label class="form_label">Сумма</label>
+        </div>
+        <button class="form_button" type="submit">Ok</button>
+        <div class="form_title"><br><br>История конвертаций</div>
+        <table class="form_table">
+            <tr>
+                <td>Клиент</td>
+                <td>Дата</td>
+                <td>Валюта</td>
+                <td>Сумма</td>
+                <td>-></td>
+                <td>Валюта</td>
+                <td>Сумма</td>
+                <td>Курс конвертации</td>
+            </tr>
+            <tr th:each="exch: ${exchanges}">
+                <td th:text="${exch.client.username}"></td>
+                <td th:text="${exch.date}"></td>
+                <td th:text="${exch.sourceCurrency.name}"></td>
+                <td th:text="${exch.amount}"></td>
+                <td>-></td>
+                <td th:text="${exch.targetCurrency.name}"></td>
+                <td th:text="${exch.result}"></td>
+                <td th:text="${exch.conversionRate}"></td>
+            </tr>
+        </table>
+        <div class="form_text"><a th:href="@{/}">На главную</a></div>
+    </form>
+    <div style="margin: 50px">
+        <form th:action="@{/logout}" method="post">
+            <button class="form_button" type="submit">Выход</button>
+        </form>
+    </div>
+</div>
+</body>
+</html>

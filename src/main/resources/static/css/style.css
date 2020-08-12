@@ -1,85 +1,173 @@
 body {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
+  display: flex;
+  width: 900px;
+  justify-content: left;
+  vertical-align: top;
+  height: 100vh;
 }
 
 h1 {
-    font-weight: normal;
-    font-family: sans-serif;
-    letter-spacing: 1px;
-    font-size: 26px;
-    color: #000;
-    margin-bottom: 32px;
+  font-weight: normal;
+  font-family: sans-serif;
+  letter-spacing: 1px;
+  font-size: 26px;
+  color: #000;
+  margin: 50px 0 32px 50px;
 }
 
 .form {
-    width: 300px;
-    padding: 10px 32px 32px;
-    border-radius: 10px;
-    box-shadow: 0 4px 16px #ccc;
-    font-family: sans-serif;
-    letter-spacing: 1px;
+  width: 700px;
+  padding: 50px;
+  border-radius: 10px;
+  box-shadow: 0 4px 16px #ccc;
+  font-family: sans-serif;
+  letter-spacing: 1px;
+  justify-content: center;
+  align-items: center;
 }
 
 .form_title {
-    font-size: 20px;
-    text-align: left;
-    margin: 0 0 30px 0;
-    font-weight: lighter;
+  font-size: 20px;
+  text-align: left;
+  margin: 0 0 30px 0;
+  font-weight: normal;
+}
+
+.form_text {
+  margin: 30px 0 10px 0;
+  font-weight: lighter;
+  line-height: 1.2;
+}
+
+.form_text_error {
+  margin: 20px 0 20px 0;
+  font-weight: lighter;
+  color: red;
+}
+
+.form_text A {
+  text-decoration: none;
+  padding-bottom: 2px;
+  border-bottom: 1px dashed royalblue;
+  color: royalblue;
+}
+
+.form_text A:hover {
+  text-decoration: none;
+  padding-bottom: 2px;
+  border-bottom: 1px dashed red;
+  color: red;
+}
+
+.form_dropdown-button {
+  width: 30%;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  font-family: sans-serif;
+  letter-spacing: 1px;
+  font-size: 16px;
+  color: #fff;
+  background-color: #0071f0;
+  outline: none;
+  cursor: pointer;
+  transition: 0.3s;
+  margin: 0 40px 50px 0;
 }
 
 .form_button {
-    padding: 10px 20px;
-    border: none;
-    border-radius: 5px;
-    font-family: sans-serif;
-    letter-spacing: 1px;
-    font-size: 16px;
-    color: #fff;
-    background-color: #0071f0;
-    outline: none;
-    cursor: pointer;
-    transition: 0.3s;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  font-family: sans-serif;
+  letter-spacing: 1px;
+  font-size: 16px;
+  color: #fff;
+  background-color: #0071f0;
+  outline: none;
+  cursor: pointer;
+  transition: 0.3s;
 }
 
 .form_button:focus,
-.form_button:hover{
-    background-color: rgba(0, 113, 240, 0.7);
+.form_button:hover {
+  background-color: rgba(0, 113, 240, 0.7);
 }
 
 .form_group {
-    position: relative;
-    margin-bottom: 32px;
+  position: relative;
+  margin-bottom: 32px;
 }
 
 .form_input {
-    width: 100%;
-    padding: 0 0 10px 0;
-    border: none;
-    border-bottom: 1px solid #e0e0e0;
-    background-color: transparent;
-    outline: none;
-    transition: 0.7s;
+  width: 100%;
+  padding: 0 0 10px 0;
+  border: none;
+  border-bottom: 1px solid #e0e0e0;
+  background-color: transparent;
+  outline: none;
+  transition: 0.7s;
 }
 
 .form_input:focus {
-    border-bottom: 1px solid #1a73a8;
+  border-bottom: 1px solid #1a73a8;
 }
 
 .form_label {
-    position: absolute;
-    top: 0;
-    left: 1px;
-    z-index: -1;
-    color: grey;
-    transition: 0.3s;
+  position: absolute;
+  top: 0;
+  left: 1px;
+  z-index: -1;
+  color: grey;
+  transition: 0.3s;
 }
 
 .form_input:focus ~ .form_label,
 .form_input:not(:placeholder-shown) ~ .form_label {
-    top: -18px;
-    font-size:12px;
-    color: #e0e0e0;
+  top: -18px;
+  font-size: 12px;
+  color: #e0e0e0;
+}
+
+.form_table {
+  font-size: 12px;
+  font-weight: lighter;
+  font-family: sans-serif;
+  color: black;
+  column-width: auto;
+  white-space: nowrap;
+  border-spacing: 18px 4px;
+  margin-left: -18px;
+  margin-bottom: 20px;
+}
+
+.footer {
+  margin: 50px 0 0 30px;
+}
+
+.footer-text {
+  font-size: 20px;
+  font-weight: lighter;
+  font-family: sans-serif;
+  color: dimgray;
+  margin-bottom: 10px;
+}
+
+.footer_table {
+  font-size: 15px;
+  font-weight: normal;
+  font-family: sans-serif;
+  letter-spacing: 1px;
+  color: black;
+  border-spacing: 18px 4px;
+  margin-bottom: 20px;
+}
+
+.footer_table A {
+  text-decoration: none;
+  color: black;
+}
+
+.footer_table A:hover {
+  color: #0071f0;
 }
