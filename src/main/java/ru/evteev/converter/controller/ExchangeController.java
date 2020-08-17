@@ -1,8 +1,5 @@
 package ru.evteev.converter.controller;
 
-import java.io.IOException;
-import java.text.ParseException;
-import javax.xml.parsers.ParserConfigurationException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
@@ -16,6 +13,10 @@ import ru.evteev.converter.entity.Exchange;
 import ru.evteev.converter.entity.User;
 import ru.evteev.converter.service.ExchangeService;
 
+import javax.xml.parsers.ParserConfigurationException;
+import java.io.IOException;
+import java.text.ParseException;
+
 // Lombok
 @RequiredArgsConstructor
 
@@ -28,7 +29,7 @@ public class ExchangeController {
 
     @GetMapping
     public String exchange(Model model)
-        throws IOException, SAXException, ParserConfigurationException {
+            throws IOException, SAXException, ParserConfigurationException {
 
         model.addAttribute("currencies", exchangeService.getCurrencies());
         model.addAttribute("metaTitle", title);
@@ -37,9 +38,9 @@ public class ExchangeController {
 
     @PostMapping
     public String addExchange(@AuthenticationPrincipal User user,
-        @ModelAttribute Exchange exchange,
-        Model model)
-        throws ParseException, IOException, SAXException, ParserConfigurationException {
+                              @ModelAttribute Exchange exchange,
+                              Model model)
+            throws ParseException, IOException, SAXException, ParserConfigurationException {
 
         exchangeService.checkExchangeRatesUpToDate(exchange);
         exchangeService.setExchangeParams(exchange, user);

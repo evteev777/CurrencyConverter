@@ -17,23 +17,13 @@ public class LoginController {
 
     @GetMapping("/login")
     public String auth(Model model) {
-        addTitle(model);
+        model.addAttribute("metaTitle", title);
         return "login";
     }
 
     @PostMapping(value = "/login")
     public String login(Model model) {
-        addTitle(model);
-        return "redirect:exchange";
-    }
-
-    @PostMapping(value = "/logout")
-    public String logout(Model model) {
-        addTitle(model);
-        return "redirect:index";
-    }
-
-    private void addTitle(Model model) {
         model.addAttribute("metaTitle", title);
+        return "redirect:exchange";
     }
 }

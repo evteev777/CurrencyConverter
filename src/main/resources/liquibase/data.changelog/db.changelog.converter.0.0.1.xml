@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+    http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+
+    <changeSet id="1" author="postgres">
+<!--        <preConditions onFail="MARK_RAN">-->
+<!--            <not>-->
+<!--                <tableExists tableName="currencies"/>-->
+<!--                <tableExists tableName="exchange_rates"/>-->
+<!--                <tableExists tableName="exchanges"/>-->
+<!--                <tableExists tableName="user_roles"/>-->
+<!--                <tableExists tableName="users"/>-->
+<!--                <tableExists tableName="users_exchange"/>-->
+<!--            </not>-->
+<!--        </preConditions>-->
+
+        <createTable tableName="currencies">
+            <column name="id" type="int4" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="char_code" type="varchar(255)"/>
+            <column name="name" type="varchar(255)"/>
+            <column name="nominal" type="int4"/>
+            <column name="num_code" type="varchar(255)"/>
+            <column name="parsed_id" type="varchar(255)"/>
+        </createTable>
+
+        <createTable tableName="exchange_rates">
+            <column name="id" type="int4" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="date" type="date"/>
+            <column name="value" type="float8">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="currency_id" type="int4"/>
+        </createTable>
+
+        <createTable tableName="exchanges">
+            <column name="id" type="int4" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="amount" type="varchar(255)"/>
+            <column name="conversion_rate" type="numeric(19, 2)"/>
+            <column name="date" type="date"/>
+            <column name="result" type="numeric(19, 2)"/>
+            <column name="client_id" type="int4"/>
+            <column name="source_currency_id" type="int4"/>
+            <column name="target_currency_id" type="int4"/>
+        </createTable>
+
+        <createTable tableName="user_roles">
+            <column name="user_id" type="int4" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="roles" type="varchar(255)"/>
+        </createTable>
+
+        <createTable tableName="users">
+            <column name="id" type="int4" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="username" type="varchar(255)"/>
+            <column name="password" type="varchar(255)"/>
+            <column name="active" type="boolean"/>
+        </createTable>
+
+        <createTable tableName="users_exchange">
+            <column name="user_id" type="int4">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="exchange_id" type="int4">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="2" author="postgres" runInTransaction="true">
+        <insert tableName="users">
+            <column name="username" value="a"/>
+            <column name="password" value="a"/>
+            <column name="active" value="false"/>
+        </insert>
+        <insert tableName="users">
+            <column name="username" value="u"/>
+            <column name="password" value="u"/>
+            <column name="active" value="false"/>
+        </insert>
+
+        <insert tableName="user_roles">
+            <column name="user_id" value="0"/>
+            <column name="roles" value="ADMIN"/>
+        </insert>
+        <insert tableName="user_roles">
+            <column name="user_id" value="1"/>
+            <column name="roles" value="USER"/>
+        </insert>
+    </changeSet>
+
+</databaseChangeLog>

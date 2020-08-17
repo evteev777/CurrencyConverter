@@ -1,17 +1,18 @@
 package ru.evteev.converter.entity;
 
-import java.math.BigDecimal;
-import java.time.LocalDate;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import java.math.BigDecimal;
+import java.time.LocalDate;
 
 // Lombok
 @Getter
@@ -25,7 +26,7 @@ public class Exchange {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Integer id;
 
     @ManyToOne
     private Currency sourceCurrency;
@@ -42,5 +43,5 @@ public class Exchange {
 
     private LocalDate date;
 
-    BigDecimal conversionRate;
+    private BigDecimal conversionRate;
 }

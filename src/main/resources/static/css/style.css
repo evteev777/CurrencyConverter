@@ -16,7 +16,8 @@ h1 {
 }
 
 .form {
-  width: 700px;
+  width: auto;
+  margin: 50px;
   padding: 50px;
   border-radius: 10px;
   box-shadow: 0 4px 16px #ccc;
@@ -118,6 +119,7 @@ h1 {
   top: 0;
   left: 1px;
   z-index: -1;
+  font-size: 16px;
   color: grey;
   transition: 0.3s;
 }

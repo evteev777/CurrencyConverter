@@ -1,13 +1,14 @@
 package ru.evteev.converter.entity;
 
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 //Lombok
 @Getter
@@ -20,7 +21,7 @@ public class Currency {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Integer id;
 
     private String parsedId;
     private String numCode;
@@ -29,7 +30,7 @@ public class Currency {
     private String name;
 
     public Currency(String parsedId, String numCode, String charCode, Integer nominal,
-        String name) {
+                    String name) {
         this.parsedId = parsedId;
         this.numCode = numCode;
         this.charCode = charCode;

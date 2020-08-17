@@ -1,23 +1,43 @@
+custom:
+    cbr-url: http://www.cbr.ru/scripts/XML_daily.asp
 server:
-  servlet:
-    context-path: /converter
-url:
-  cbr: http://www.cbr.ru/scripts/XML_daily.asp
-  prefix: /
+    port: 8080
+    servlet:
+        context-path: /converter
 spring:
-  datasource:
-    driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://localhost/converter
-    username: postgres
-    password: 111222333
-  jpa:
-    show-sql: true
-    generate-ddl: true
-    hibernate:
-      ddl-auto: create-drop
-    properties:
-      hibernate:
-        jdbc:
-          lob:
-            non_contextual_creation: true
+    datasource:
+        #    driver: com.mysql.jdbc.Driver
+        #    url: jdbc:mysql://localhost:3306/converter?createDatabaseIfNotExist=true&serverTimezone=UTC
+        #    username: root
+        #    password: 111222333
+        driver: org.postgresql.Driver
+        url: jdbc:postgresql://localhost:5432/converter?serverTimezone=UTC
+        username: postgres
+        password: 111222333
+
+        changeLogFile: classpath:/liquibase/data.changelog/db.changelog.master.xml
+        initialization-mode: always
+        verbose: true
+    jpa:
+        database: default
+        open-in-view: false
+        generate-ddl: true
+        show-sql: false
+        hibernate:
+            ddl-auto: none
+        properties:
+            hibernate:
+                jdbc:
+                    lob:
+                        non_contextual_creation: true
+    flyway:
+        enabled: false
+    liquibase:
+        enabled: true
+logging:
+    level:
+        org:
+            hibernate: info
+            springframework:
+                security: debug
 

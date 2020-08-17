@@ -1,9 +1,5 @@
 package ru.evteev.converter.service;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import javax.xml.parsers.ParserConfigurationException;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
@@ -17,6 +13,11 @@ import ru.evteev.converter.parser.XMLParserDOM;
 import ru.evteev.converter.repo.CurrencyRepo;
 import ru.evteev.converter.repo.ExchangeRateRepo;
 
+import javax.xml.parsers.ParserConfigurationException;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
 // Lombok
 @Getter
 @Setter
@@ -28,11 +29,11 @@ public class XMLParserService {
     private final ExchangeRateRepo exchangeRateRepo;
     private final CurrencyRepo currencyRepo;
 
-    @Value("${url.cbr}")
+    @Value("${custom.cbr-url}")
     private String url;
 
     public void getCurrenciesAndExchangeRates()
-        throws ParserConfigurationException, SAXException, IOException {
+            throws ParserConfigurationException, SAXException, IOException {
 
         XMLParser parser = new XMLParserDOM();
         List<ExchangeRate> exchangeRates = parser.parse(url);

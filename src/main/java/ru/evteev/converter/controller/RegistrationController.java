@@ -1,6 +1,5 @@
 package ru.evteev.converter.controller;
 
-import java.util.Collections;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -10,6 +9,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import ru.evteev.converter.entity.Role;
 import ru.evteev.converter.entity.User;
 import ru.evteev.converter.repo.UserRepo;
+
+import java.util.Collections;
 
 // Lombok
 @RequiredArgsConstructor

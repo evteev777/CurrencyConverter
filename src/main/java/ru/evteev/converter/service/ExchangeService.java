@@ -1,15 +1,5 @@
 package ru.evteev.converter.service;
 
-import java.io.IOException;
-import java.math.BigDecimal;
-import java.math.RoundingMode;
-import java.text.DecimalFormat;
-import java.text.DecimalFormatSymbols;
-import java.text.ParseException;
-import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
-import javax.xml.parsers.ParserConfigurationException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.xml.sax.SAXException;
@@ -20,6 +10,17 @@ import ru.evteev.converter.entity.User;
 import ru.evteev.converter.repo.CurrencyRepo;
 import ru.evteev.converter.repo.ExchangeRateRepo;
 import ru.evteev.converter.repo.ExchangeRepo;
+
+import javax.xml.parsers.ParserConfigurationException;
+import java.io.IOException;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
+import java.text.ParseException;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 // Lombok
 @RequiredArgsConstructor
@@ -33,7 +34,7 @@ public class ExchangeService {
     private final XMLParserService xmlParserService;
 
     public void checkExchangeRatesUpToDate(Exchange exch)
-        throws ParserConfigurationException, SAXException, IOException {
+            throws ParserConfigurationException, SAXException, IOException {
 
         Currency sourceC = exch.getSourceCurrency();
         Currency targetC = exch.getTargetCurrency();
@@ -54,7 +55,7 @@ public class ExchangeService {
     }
 
     public List<Currency> getCurrencies()
-        throws IOException, SAXException, ParserConfigurationException {
+            throws IOException, SAXException, ParserConfigurationException {
 
         if (currencyRepo.count() == 0) {
             xmlParserService.getCurrenciesAndExchangeRates();
@@ -81,16 +82,16 @@ public class ExchangeService {
     public BigDecimal getThisConversionExchRate(Exchange exch) {
         int sourceId = exch.getSourceCurrency().getId();
         double sourceExchRate = exchangeRateRepo
-            .findByCurrencyId(sourceId)
-            .getValue();
+                .findByCurrencyId(sourceId)
+                .getValue();
 
         int targetId = exch.getTargetCurrency().getId();
         double targetExchRate = exchangeRateRepo
-            .findByCurrencyId(targetId)
-            .getValue();
+                .findByCurrencyId(targetId)
+                .getValue();
 
         return BigDecimal.valueOf(sourceExchRate / targetExchRate)
-            .setScale(2, RoundingMode.HALF_UP);
+                .setScale(2, RoundingMode.HALF_UP);
     }
 
     public BigDecimal convert(Exchange exch) throws ParseException {
@@ -102,6 +103,6 @@ public class ExchangeService {
         BigDecimal sourceAmount = (BigDecimal) df.parse(exch.getAmount());
         BigDecimal conversionRate = getThisConversionExchRate(exch);
         return sourceAmount.multiply(conversionRate)
-            .setScale(2, RoundingMode.HALF_UP);
+                .setScale(2, RoundingMode.HALF_UP);
     }
 }
