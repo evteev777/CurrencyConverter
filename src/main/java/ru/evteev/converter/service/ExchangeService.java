@@ -91,7 +91,7 @@ public class ExchangeService {
                 .getValue();
 
         return BigDecimal.valueOf(sourceExchRate / targetExchRate)
-                .setScale(2, RoundingMode.HALF_UP);
+                .setScale(4, RoundingMode.HALF_UP);
     }
 
     public BigDecimal convert(Exchange exch) throws ParseException {
