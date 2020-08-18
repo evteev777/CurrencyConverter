@@ -1,0 +1,3 @@
+id,username,password,active
+0,admin,a,false
+1,user,u,false

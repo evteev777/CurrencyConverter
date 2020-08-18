@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+    <!--    <changeSet id="Create/Update tables" author="postgres" >-->
+    <changeSet id="Create/Update tables" author="postgres" runOnChange="true">
+
+        <!-- Drop tables if exists -->
+        <sql splitStatements="true" dbms="postgresql">
+            DROP TABLE IF EXISTS "public.currencies" CASCADE;
+            DROP TABLE IF EXISTS "public.exchange_rates" CASCADE;
+            DROP TABLE IF EXISTS "public.exchanges" CASCADE;
+            DROP TABLE IF EXISTS "public.user_roles" CASCADE;
+            DROP TABLE IF EXISTS "public.users" CASCADE;
+            DROP TABLE IF EXISTS "public.users_exchange" CASCADE;
+        </sql>
+
+        <!-- Create tables -->
+        <createTable tableName="currencies">
+            <column name="id" type="int4">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="char_code" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="name" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="nominal" type="int4">
+                <constraints nullable="false"/>
+            </column>
+            <column name="num_code" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="parsed_id" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <addAutoIncrement columnName="id" tableName="currencies" columnDataType="int4" incrementBy="1"
+                          startWith="1000"/>
+
+        <createTable tableName="users">
+            <column name="id" type="int4">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="username" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="password" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="active" type="boolean">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <addAutoIncrement columnName="id" tableName="users" columnDataType="int4" incrementBy="1" startWith="1000"/>
+
+        <createTable tableName="exchange_rates">
+            <column name="id" type="int4" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="date" type="date">
+                <constraints nullable="false"/>
+            </column>
+            <column name="value" type="float8">
+                <constraints nullable="false"/>
+            </column>
+            <column name="currency_id" type="int4">
+                <constraints nullable="false"
+                             foreignKeyName="FK_currency_exchange_rates"
+                             referencedTableName="currencies" referencedColumnNames="id" deleteCascade="true"/>
+            </column>
+        </createTable>
+
+        <createTable tableName="exchanges">
+            <column name="id" type="int4" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="amount" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="conversion_rate" type="numeric(19, 2)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="date" type="date">
+                <constraints nullable="false"/>
+            </column>
+            <column name="result" type="numeric(19, 2)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="user_id" type="int4">
+                <constraints nullable="false"
+                             foreignKeyName="FK_users_exchange_rates"
+                             referencedTableName="users" referencedColumnNames="id" deleteCascade="true"/>
+            </column>
+            <column name="source_currency_id" type="int4">
+                <constraints nullable="false"
+                             foreignKeyName="FK_source_currency_exchange_rates"
+                             referencedTableName="currencies" referencedColumnNames="id" deleteCascade="true"/>
+            </column>
+            <column name="target_currency_id" type="int4">
+                <constraints nullable="false"
+                             foreignKeyName="FK_target_currency_exchange_rates"
+                             referencedTableName="currencies" referencedColumnNames="id" deleteCascade="true"/>
+            </column>
+        </createTable>
+
+        <createTable tableName="user_roles">
+            <column name="user_id" type="int4" autoIncrement="true">
+                <constraints nullable="false"
+                             foreignKeyName="FK_users_user_roles"
+                             referencedTableName="users" referencedColumnNames="id" deleteCascade="true"/>
+            </column>
+            <column name="roles" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <!--        <createTable tableName="users_exchange">-->
+        <!--            <column name="user_id" type="int4">-->
+        <!--                <constraints primaryKey="true" nullable="false"-->
+        <!--                             foreignKeyName="FK_users_users_exchange"-->
+        <!--                             referencedTableName="users" referencedColumnNames="id" deleteCascade="true"/>-->
+        <!--            </column>-->
+        <!--            <column name="exchange_id" type="int4">-->
+        <!--                <constraints primaryKey="true" nullable="false"-->
+        <!--                             foreignKeyName="FK_exchanges_users_exchange"-->
+        <!--                             referencedTableName="exchanges" referencedColumnNames="id" deleteCascade="true"/>-->
+        <!--            </column>-->
+        <!--        </createTable>-->
+
+        <!--         Loading of Data -->
+        <!--        <loadData file="db/changelog/init/users.csv" tableName="users">-->
+        <!--            <column name="id" type="NUMERIC"/>-->
+        <!--            <column name="username" type="STRING"/>-->
+        <!--            <column name="password" type="STRING"/>-->
+        <!--            <column name="active" type="STRING"/>-->
+        <!--        </loadData>-->
+        <!--        <loadData file="db/changelog/init/roles.csv" tableName="user_roles">-->
+        <!--            <column name="user_id" type="NUMERIC"/>-->
+        <!--            <column name="roles" type="STRING"/>-->
+        <!--        </loadData>-->
+        <!--        <loadData file="db/changelog/init/currencies.csv" tableName="currencies">-->
+        <!--            <column name="id" type="NUMERIC"/>-->
+        <!--            <column name="char_code" type="STRING"/>-->
+        <!--            <column name="name" type="STRING"/>-->
+        <!--            <column name="nominal" type="NUMERIC"/>-->
+        <!--            <column name="num_code" type="STRING"/>-->
+        <!--            <column name="parsed_id" type="STRING"/>-->
+        <!--        </loadData>-->
+    </changeSet>
+</databaseChangeLog>

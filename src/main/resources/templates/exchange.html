@@ -37,7 +37,7 @@
                 <td>Курс конвертации</td>
             </tr>
             <tr th:each="exch: ${exchanges}">
-                <td th:text="${exch.client.username}"></td>
+                <td th:text="${exch.user.username}"></td>
                 <td th:text="${exch.date}"></td>
                 <td th:text="${exch.sourceCurrency.name}"></td>
                 <td th:text="${exch.amount}"></td>

@@ -7,9 +7,9 @@ import ru.evteev.converter.entity.Currency;
 import ru.evteev.converter.entity.Exchange;
 import ru.evteev.converter.entity.ExchangeRate;
 import ru.evteev.converter.entity.User;
-import ru.evteev.converter.repo.CurrencyRepo;
-import ru.evteev.converter.repo.ExchangeRateRepo;
-import ru.evteev.converter.repo.ExchangeRepo;
+import ru.evteev.converter.repository.CurrencyRepo;
+import ru.evteev.converter.repository.ExchangeRateRepo;
+import ru.evteev.converter.repository.ExchangeRepo;
 
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.IOException;
@@ -74,7 +74,7 @@ public class ExchangeService {
     public void setExchangeParams(Exchange exch, User user) throws ParseException {
         exch.setConversionRate(getThisConversionExchRate(exch));
         exch.setResult(convert(exch));
-        exch.setClient(user);
+        exch.setUser(user);
         exch.setDate(LocalDate.now());
         exchangeRepo.save(exch);
     }

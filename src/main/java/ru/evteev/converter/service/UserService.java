@@ -4,7 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Service;
-import ru.evteev.converter.repo.UserRepo;
+import ru.evteev.converter.repository.UserRepo;
 
 // Lombok
 @RequiredArgsConstructor

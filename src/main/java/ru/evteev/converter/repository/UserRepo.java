@@ -1,4 +1,4 @@
-package ru.evteev.converter.repo;
+package ru.evteev.converter.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import ru.evteev.converter.entity.User;

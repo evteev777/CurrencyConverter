@@ -18,7 +18,7 @@
         <maven-plugin.version>3.8.1</maven-plugin.version>
         <ultraq-thymeleaf.version>2.4.1</ultraq-thymeleaf.version>
         <properties-maven-plugin.version>1.0.0</properties-maven-plugin.version>
-        <liquibase-maven-plugin.version>4.0.0</liquibase-maven-plugin.version>
+        <liquibase.version>3.10.2</liquibase.version>
         <mysql-connector.version>8.0.21</mysql-connector.version>
     </properties>
 
@@ -55,7 +55,7 @@
                         </goals>
                         <configuration>
                             <files>
-                                <file>application.yml</file>
+                                <file>application.yaml</file>
                             </files>
                         </configuration>
                     </execution>
@@ -65,9 +65,9 @@
             <plugin>
                 <groupId>org.liquibase</groupId>
                 <artifactId>liquibase-maven-plugin</artifactId>
-                <version>${liquibase-maven-plugin.version}</version>
+                <version>${liquibase.version}</version>
                 <configuration>
-                    <propertyFile>application.yml</propertyFile>
+                    <propertyFile>application.yaml</propertyFile>
                 </configuration>
             </plugin>
         </plugins>
@@ -143,6 +143,20 @@
             <version>${postgresql.version}</version>
             <scope>runtime</scope>
         </dependency>
+
+        <!-- https://mvnrepository.com/artifact/org.liquibase/liquibase-core -->
+        <dependency>
+            <groupId>org.liquibase</groupId>
+            <artifactId>liquibase-core</artifactId>
+            <version>${liquibase.version}</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/org.liquibase/liquibase-maven-plugin -->
+        <dependency>
+            <groupId>org.liquibase</groupId>
+            <artifactId>liquibase-maven-plugin</artifactId>
+            <version>${liquibase.version}</version>
+        </dependency>
+
 
         <!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-thymeleaf -->
         <dependency>

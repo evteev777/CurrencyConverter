@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import ru.evteev.converter.entity.Role;
 import ru.evteev.converter.entity.User;
-import ru.evteev.converter.repo.UserRepo;
+import ru.evteev.converter.repository.UserRepo;
 
 import java.util.Collections;
 
