@@ -32,7 +32,6 @@ public class ExchangeRate {
 
     private Double value;
 
-    //    @Temporal(TemporalType.TIMESTAMP)
     private LocalDate date = LocalDate.now();
 
     public ExchangeRate(Currency currency, double value) {
