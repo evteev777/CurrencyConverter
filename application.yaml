@@ -4,7 +4,7 @@ parse:
 server:
     port: 8080
     servlet:
-        context-path: /converter
+        context-path: /currency-converter
 spring:
     datasource:
         #    driver: com.mysql.jdbc.Driver
@@ -13,13 +13,18 @@ spring:
         #    password: 111222333
 
         driver: org.postgresql.Driver
-        url: jdbc:postgresql://localhost:5432/converter?serverTimezone=UTC
+        url: jdbc:postgresql://localhost:5432/currency_converter?serverTimezone=UTC
         username: postgres
         password: 111222333
 
         changeLogFile: db/changelog/db.changelog-master.xml
         initialization-mode: always
         verbose: true
+    http:
+        multipart:
+            enabled: true
+            max-file-size: 50MB
+            max-request-size: 50MB
     jpa:
         database: default
         show-sql: true
