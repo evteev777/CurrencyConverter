@@ -25,7 +25,7 @@ import java.text.ParseException;
 public class ExchangeController {
 
     private final ExchangeService exchangeService;
-    String title = "Обмен валюты";
+    private final String title = "Обмен валюты";
 
     @GetMapping
     public String exchange(Model model)

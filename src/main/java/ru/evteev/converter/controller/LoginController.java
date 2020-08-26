@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 public class LoginController {
 
-    String title = "Вход";
+    private final String title = "Вход";
 
     @GetMapping("/login")
     public String auth(Model model) {

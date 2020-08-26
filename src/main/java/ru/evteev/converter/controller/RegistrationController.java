@@ -20,7 +20,7 @@ import java.util.Collections;
 public class RegistrationController {
 
     private final UserRepo userRepo;
-    String title = "Регистрация";
+    private final String title = "Регистрация";
 
     @GetMapping
     public String showRegistrationPage(Model model) {
