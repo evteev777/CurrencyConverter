@@ -81,17 +81,16 @@ public class ExchangeService {
 
     public BigDecimal getThisConversionExchRate(Exchange exch) {
         int sourceId = exch.getSourceCurrency().getId();
-        double sourceExchRate = exchangeRateRepo
+        BigDecimal sourceExchRate = BigDecimal.valueOf(exchangeRateRepo
                 .findByCurrencyId(sourceId)
-                .getValue();
+                .getValue());
 
         int targetId = exch.getTargetCurrency().getId();
-        double targetExchRate = exchangeRateRepo
+        BigDecimal targetExchRate = BigDecimal.valueOf(exchangeRateRepo
                 .findByCurrencyId(targetId)
-                .getValue();
+                .getValue());
 
-        return BigDecimal.valueOf(sourceExchRate / targetExchRate)
-                .setScale(4, RoundingMode.HALF_UP);
+        return sourceExchRate.divide(targetExchRate, 4, RoundingMode.HALF_UP);
     }
 
     public BigDecimal convert(Exchange exch) throws ParseException {
