@@ -7,6 +7,8 @@
 Приложение можно протестировать по адресу \
 http://www.evteev.ru/currency-converter/
 
+Подробнее - на странице [wiki](https://github.com/evteev777/CurrencyConverter/wiki)
+
 ## Используемые технологии
 
 - Java 8 
