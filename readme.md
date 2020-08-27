@@ -40,7 +40,8 @@ http://www.evteev.ru/currency-converter/
 
 ## Работа в приложении
 
-%md <a href="http://www.evteev.ru/currency-converter" target="_blank">Тест приложения</a>
+Приложение можно протестировать по адресу \
+http://www.evteev.ru/currency-converter/
 
 - регистрация
 - логин
