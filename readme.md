@@ -3,6 +3,8 @@
 ## Описание
 
 Веб-приложение для конвертации валюты по актуальным курсам ЦБ РФ, с регистрацией пользователей и историей конвертаций\
+
+Приложение можно протестировать по адресу \
 http://www.evteev.ru/currency-converter/
 
 ## Используемые технологии
@@ -26,8 +28,6 @@ http://www.evteev.ru/currency-converter/
 
 Если выбрать в настройках MySQL - база создается автоматически
 
-Список валют, обменные курсы, история обмена и информация о пользователях хранятся в отдельных таблицах БД 
-
 ### Настройки 
 
 Настройки приложения производятся через отдельный файл application.yaml
@@ -35,13 +35,12 @@ http://www.evteev.ru/currency-converter/
 - Database: PostgresSQL / MySQL, название БД, логин и пароль для доступа к БД
 - XML Parsing method: SAX / DOM
 - Parse url, по-умолчанию http://www.cbr.ru/scripts/XML_daily.asp
-- Server port, по-умолчанию 8080
+- Tomcat server port, по-умолчанию 8080
 - Context path, по-умолчанию /currency-converter
 
 ## Работа в приложении
 
-Приложение можно протестировать по адресу \
-http://www.evteev.ru/currency-converter/
+[Тест приложения](http://www.evteev.ru/currency-converter)/{:target="_blank"}
 
 - регистрация
 - логин
@@ -68,4 +67,5 @@ http://www.evteev.ru/currency-converter/
 - вывод для каждого пользователя только его истории конвертаций
 - профили в pom.xml для упаковки приложения в jar и war
 - администрирование пользователей
+- написание тестов
 - доработка фронта (HYML/CSS)
